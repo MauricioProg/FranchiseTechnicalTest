@@ -17,16 +17,6 @@ public class BranchModel {
 
 
 
-    public boolean franchiseExist(int franchiseId) {
-
-        if (franchiseId == 0){
-            return false;
-        }
-
-        return true;
-    }
-
-
 
 
 }

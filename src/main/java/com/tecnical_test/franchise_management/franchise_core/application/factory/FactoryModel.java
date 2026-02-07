@@ -3,8 +3,10 @@ package com.tecnical_test.franchise_management.franchise_core.application.factor
 
 import com.tecnical_test.franchise_management.franchise_core.application.dto.request.BranchRequest;
 import com.tecnical_test.franchise_management.franchise_core.application.dto.request.FranchiseRequest;
+import com.tecnical_test.franchise_management.franchise_core.application.dto.request.ProductRequest;
 import com.tecnical_test.franchise_management.franchise_core.domain.model.BranchModel;
 import com.tecnical_test.franchise_management.franchise_core.domain.model.FranchiseModel;
+import com.tecnical_test.franchise_management.franchise_core.domain.model.ProductModel;
 import org.springframework.stereotype.Component;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
@@ -13,7 +15,7 @@ import tools.jackson.databind.ObjectMapper;
 @Component
 public class FactoryModel {
 
-    public BranchModel buildDtoRequestToModel(BranchRequest branchRequest) {
+    public BranchModel buildBranchDtoRequestToBranchModel(BranchRequest branchRequest) {
 
         return BranchModel.builder()
                 .branchName(branchRequest.getBranchName())
@@ -22,14 +24,22 @@ public class FactoryModel {
 
     }
 
-
-    public FranchiseModel buildDtoRequestToModel(FranchiseRequest franchiseRequest) {
+    public FranchiseModel buildFranchiseDtoRequestToFranchiseModel(FranchiseRequest franchiseRequest) {
         return FranchiseModel.builder()
                 .franchiseName(franchiseRequest.getFranchiseName())
                 .build();
     }
 
-    
+
+    public ProductModel buildProductDtoRequestToProductModel(ProductRequest productRequest) {
+        return ProductModel.builder()
+                .branchId(productRequest.getBranchId())
+                .franchiseId(productRequest.getFranchiseId())
+                .productName(productRequest.getProductName())
+                .stock(productRequest.getStock())
+                .build();
+    }
+
 
     public JsonNode buildModelToJsonNode(Object model) {
         ObjectMapper mapper = new ObjectMapper();

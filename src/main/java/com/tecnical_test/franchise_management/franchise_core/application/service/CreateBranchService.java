@@ -23,9 +23,7 @@ public class CreateBranchService {
     public Mono<JsonNode> executeCreateBranch(BranchRequest branchRequest) {
 
 
-        BranchModel branchModel = factoryModel.buildDtoRequestToModel(branchRequest);
-
-        branchModel.franchiseExist(Integer.parseInt(String.valueOf(branchModel.getFranchiseId())));
+        BranchModel branchModel = factoryModel.buildBranchDtoRequestToBranchModel(branchRequest);
 
         return branchRepositoryPort.saveBranch(branchModel)
                 .map(savedModel -> factoryModel.buildModelToJsonNode(savedModel));

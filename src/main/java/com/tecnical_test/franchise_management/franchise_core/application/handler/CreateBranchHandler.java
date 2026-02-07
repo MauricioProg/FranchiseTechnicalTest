@@ -22,12 +22,12 @@ public class CreateBranchHandler {
     public Mono<JsonNode> executeCreateFranchise(BranchRequest branchRequest) {
 
         if (branchRequest.getFranchiseId() == null) {
-            return null;
+            return Mono.error(new IllegalArgumentException("Franquicia id es requerido"));
 
         }
 
         if (branchRequest.getBranchName() == null) {
-            return null;
+            return Mono.error(new IllegalArgumentException("El nombre de la sucursal es requerido"));
         }
 
         return createBranchService.executeCreateBranch(branchRequest);

@@ -27,7 +27,7 @@ public class CreateFranchiseService {
     public Mono<JsonNode> executeCreateFranchise(FranchiseRequest franchiseRequest) {
 
 
-        FranchiseModel franchiseModel = factoryModel.buildDtoRequestToModel(franchiseRequest);
+        FranchiseModel franchiseModel = factoryModel.buildFranchiseDtoRequestToFranchiseModel(franchiseRequest);
 
         return saveFranchiseRepositoryPort.saveFranchise(franchiseModel)
                 .map(savedModel -> factoryModel.buildModelToJsonNode(savedModel));

@@ -4,8 +4,10 @@ package com.tecnical_test.franchise_management.franchise_core.infrastructure.ent
 
 import com.tecnical_test.franchise_management.franchise_core.application.dto.request.BranchRequest;
 import com.tecnical_test.franchise_management.franchise_core.application.dto.request.FranchiseRequest;
+import com.tecnical_test.franchise_management.franchise_core.application.dto.request.ProductRequest;
 import com.tecnical_test.franchise_management.franchise_core.application.handler.CreateBranchHandler;
 import com.tecnical_test.franchise_management.franchise_core.application.handler.CreateFranchiseHandler;
+import com.tecnical_test.franchise_management.franchise_core.application.handler.CreateProductHandler;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -21,10 +23,13 @@ public class FranchiseController {
 
     private CreateFranchiseHandler createFranchiseHandler;
     private CreateBranchHandler createBranchHandler;
+    private CreateProductHandler createProductHandler;
 
-    public FranchiseController(CreateFranchiseHandler createFranchiseHandler, CreateBranchHandler createBranchHandler) {
+    public FranchiseController(CreateFranchiseHandler createFranchiseHandler, CreateBranchHandler createBranchHandler,
+                               CreateProductHandler createProductHandler) {
         this.createFranchiseHandler = createFranchiseHandler;
         this.createBranchHandler = createBranchHandler;
+        this.createProductHandler = createProductHandler;
     }
 
     @PostMapping("/CreateFranchise")
@@ -43,9 +48,9 @@ public class FranchiseController {
 
     @PostMapping("/CreateProduct")
     public Mono<JsonNode> createProduct(
-            @RequestHeader(required = false ) Map<String, String > mapHeader) {
+            @RequestBody ProductRequest productRequest) {
 
-        return null;
+        return createProductHandler.executeCreateProduct(productRequest);
     }
 
 
