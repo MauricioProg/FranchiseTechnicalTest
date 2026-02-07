@@ -2,6 +2,7 @@ package com.tecnical_test.franchise_management.franchise_core.application.factor
 
 
 import com.tecnical_test.franchise_management.franchise_core.application.dto.request.BranchRequest;
+import com.tecnical_test.franchise_management.franchise_core.application.dto.request.DeleteProductRequest;
 import com.tecnical_test.franchise_management.franchise_core.application.dto.request.FranchiseRequest;
 import com.tecnical_test.franchise_management.franchise_core.application.dto.request.ProductRequest;
 import com.tecnical_test.franchise_management.franchise_core.domain.model.BranchModel;
@@ -37,6 +38,14 @@ public class FactoryModel {
                 .franchiseId(productRequest.getFranchiseId())
                 .productName(productRequest.getProductName())
                 .stock(productRequest.getStock())
+                .build();
+    }
+
+    public ProductModel buildProductDeleteDtoRequestToProductModel(DeleteProductRequest deleteProductRequest) {
+        return ProductModel.builder()
+                .idProduct(deleteProductRequest.getProductId())
+                .branchId(Integer.parseInt(deleteProductRequest.getBranchId()))
+                .franchiseId(Integer.parseInt(deleteProductRequest.getFranchiseId()))
                 .build();
     }
 

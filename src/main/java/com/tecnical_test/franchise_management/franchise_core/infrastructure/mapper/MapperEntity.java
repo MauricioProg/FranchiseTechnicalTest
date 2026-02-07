@@ -63,6 +63,7 @@ public class MapperEntity {
 
     public ProductEntity productModelToEntity(ProductModel productModel) {
         return ProductEntity.builder()
+                .id(productModel.getIdProduct() )
                 .name(productModel.getProductName())
                 .stock(productModel.getStock())
                 .build();

@@ -7,4 +7,6 @@ public interface ProductRepositoryPort {
 
     Mono<ProductModel> createProduct(ProductModel productModel);
 
+    Mono<ProductModel> deleteProduct(ProductModel productModel);
+
 }

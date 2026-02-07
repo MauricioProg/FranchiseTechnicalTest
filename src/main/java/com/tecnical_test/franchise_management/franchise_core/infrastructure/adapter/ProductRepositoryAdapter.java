@@ -27,30 +27,57 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
     @Override
     public Mono<ProductModel> createProduct(ProductModel productModel) {
 
-        Integer idReal = Integer.valueOf(productModel.getFranchiseId());
+        Integer idFranchise = Integer.valueOf(productModel.getFranchiseId());
         Integer idBranch = Integer.valueOf(productModel.getBranchId());
 
-        return franchiseRepository.findById(idReal)
-                .flatMap(existingFranchise -> {
 
-                   BranchEntity branchEntity = existingFranchise.getBranchList().get(idBranch);
+        return franchiseRepository.findById(idFranchise)
+                .flatMap(franchise -> {
 
-                    if (branchEntity.getProductList() == null) {
-                       branchEntity.setProductList(new ArrayList<>());
-                    }
+                    return Mono.justOrEmpty(franchise.getBranchList().stream()
+                                    .filter(branchEntity -> branchEntity.getId() == idBranch)
+                                    .findFirst())
+                            .flatMap(branch -> {
 
-                    ProductEntity productEntity = mapper.productModelToEntity(productModel);
+                                if (branch.getProductList() == null) {
+                                    branch.setProductList(new ArrayList<>());
+                                }
 
+                                ProductEntity productEntity = mapper.productModelToEntity(productModel);
+                                productEntity.setId(branch.getProductList().size() + 1);
 
-                    productEntity.setId(existingFranchise.getBranchList().size() + 1);
+                                branch.getProductList().add(productEntity);
 
-                    branchEntity.getProductList().add(productEntity);
+                                return franchiseRepository.save(franchise);
+                            });
 
-                    return franchiseRepository.save(existingFranchise);
-                })
-                .map(finalProductModel -> mapper.franchiseEntityToProductModel(finalProductModel, idBranch));
-
+                }).map(finalProductModel -> mapper.franchiseEntityToProductModel(finalProductModel, idBranch));
     }
 
+    @Override
+    public Mono<ProductModel> deleteProduct(ProductModel productModel) {
 
+        Integer idFranchise = Integer.valueOf(productModel.getFranchiseId());
+        Integer idBranch = Integer.valueOf(productModel.getBranchId());
+        Integer idProduct = Integer.valueOf(productModel.getIdProduct());
+
+        return franchiseRepository.findById(idFranchise)
+                .flatMap(franchise -> {
+
+                    return Mono.justOrEmpty(franchise.getBranchList().stream()
+                                    .filter(branchEntity -> branchEntity.getId() == idBranch)
+                                    .findFirst())
+                            .flatMap(branch -> {
+                                branch.getProductList().removeIf(productEntity -> productEntity.getId() == idProduct);
+                                return franchiseRepository.save(franchise);
+                            });
+
+                }).map(finalProductModel -> ProductModel.builder()
+                        .idProduct(idProduct)
+                        .branchId(idBranch)
+                        .franchiseId(idFranchise)
+                        .productName("Producto Eliminado correctamente")
+                        .build());
+
+    }
 }

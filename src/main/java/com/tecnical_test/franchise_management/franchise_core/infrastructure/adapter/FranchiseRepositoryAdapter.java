@@ -1,7 +1,7 @@
 package com.tecnical_test.franchise_management.franchise_core.infrastructure.adapter;
 
 
-import com.tecnical_test.franchise_management.franchise_core.application.ports.SaveFranchiseRepositoryPort;
+import com.tecnical_test.franchise_management.franchise_core.application.ports.FranchiseRepositoryPort;
 import com.tecnical_test.franchise_management.franchise_core.domain.model.FranchiseModel;
 import com.tecnical_test.franchise_management.franchise_core.infrastructure.entity.FranchiseEntity;
 import com.tecnical_test.franchise_management.franchise_core.infrastructure.mapper.MapperEntity;
@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono;
 
 
 @Component
-public class FranchiseRepositoryAdapter  implements SaveFranchiseRepositoryPort {
+public class FranchiseRepositoryAdapter  implements FranchiseRepositoryPort {
 
     private MapperEntity mapper;
     private FranchiseRepository franchiseRepository;
