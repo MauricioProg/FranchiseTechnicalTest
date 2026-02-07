@@ -23,15 +23,17 @@ public class FranchiseController {
     private CreateProductHandler createProductHandler;
     private DeleteProductHandler deleteProductHandler;
     private UpdateStockHandler updateStockHandler;
+    private PaginateStockProductHandler paginateStockProductHandler;
 
     public FranchiseController(CreateFranchiseHandler createFranchiseHandler, CreateBranchHandler createBranchHandler,
                                CreateProductHandler createProductHandler,  DeleteProductHandler deleteProductHandler,
-                               UpdateStockHandler updateStockHandler) {
+                               UpdateStockHandler updateStockHandler, PaginateStockProductHandler paginateStockProductHandler) {
         this.createFranchiseHandler = createFranchiseHandler;
         this.createBranchHandler = createBranchHandler;
         this.createProductHandler = createProductHandler;
         this.deleteProductHandler = deleteProductHandler;
         this.updateStockHandler = updateStockHandler;
+        this.paginateStockProductHandler = paginateStockProductHandler;
     }
 
     @PostMapping("/CreateFranchise")
@@ -74,9 +76,9 @@ public class FranchiseController {
 
     @GetMapping("/PaginatedStockProduct")
     public Flux<JsonNode> paginatedStockProduct(
-            @RequestHeader(required = false ) Map<String, String > mapHeader) {
+            @RequestParam int franchiseId) {
 
-        return null;
+        return paginateStockProductHandler.paginatedStockProduct(franchiseId);
     }
 
 

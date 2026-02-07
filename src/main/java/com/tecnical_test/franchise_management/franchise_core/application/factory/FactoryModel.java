@@ -56,6 +56,12 @@ public class FactoryModel {
                 .build();
     }
 
+    public ProductModel buildParamDtoRequestToProductModel(int franchiseId) {
+        return ProductModel.builder()
+                .franchiseId(franchiseId)
+                .build();
+    }
+
 
     public JsonNode buildModelToJsonNode(Object model) {
         ObjectMapper mapper = new ObjectMapper();

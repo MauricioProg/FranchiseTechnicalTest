@@ -76,6 +76,16 @@ public class MapperEntity {
                 .build();
     }
 
+    public ProductModel entityToProductModel(ProductEntity productEntity) {
+        return ProductModel.builder()
+                .idProduct(productEntity.getId() )
+                .productName(productEntity.getName())
+                .stock(productEntity.getStock())
+                .branchId(0)
+                .franchiseId(0)
+                .build();
+    }
+
     public ProductModel franchiseEntityToUpdateStockModel(FranchiseEntity franchiseEntity, int idSucursal, int idProduct) {
 
         Optional<BranchEntity> branchEntity = franchiseEntity.getBranchList()

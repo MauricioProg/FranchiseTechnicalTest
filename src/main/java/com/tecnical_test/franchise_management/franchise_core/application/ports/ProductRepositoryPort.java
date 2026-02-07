@@ -1,6 +1,7 @@
 package com.tecnical_test.franchise_management.franchise_core.application.ports;
 
 import com.tecnical_test.franchise_management.franchise_core.domain.model.ProductModel;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface ProductRepositoryPort {
@@ -10,5 +11,7 @@ public interface ProductRepositoryPort {
     Mono<ProductModel> deleteProduct(ProductModel productModel);
 
     Mono<ProductModel> updateStockProduct(ProductModel productModel);
+
+    Flux<ProductModel> paginatedStockProduct(ProductModel productModel);
 
 }

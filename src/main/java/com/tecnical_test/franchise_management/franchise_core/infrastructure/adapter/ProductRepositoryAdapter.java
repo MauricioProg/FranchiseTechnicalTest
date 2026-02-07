@@ -6,9 +6,11 @@ import com.tecnical_test.franchise_management.franchise_core.infrastructure.enti
 import com.tecnical_test.franchise_management.franchise_core.infrastructure.mapper.MapperEntity;
 import com.tecnical_test.franchise_management.franchise_core.infrastructure.repository.FranchiseRepository;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 @Component
 public class ProductRepositoryAdapter implements ProductRepositoryPort {
@@ -108,5 +110,17 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
                 })
                 .switchIfEmpty(Mono.error(new RuntimeException("El producto no existe")))
                 .map(finalEntity -> mapper.franchiseEntityToUpdateStockModel(finalEntity, productModel.getBranchId(), productModel.getIdProduct()));
+    }
+
+    @Override
+    public Flux<ProductModel> paginatedStockProduct(ProductModel productModel) {
+        return franchiseRepository.findById(productModel.getIdProduct())
+                .flatMapMany(franchise -> Flux.fromIterable(franchise.getBranchList())
+                        .flatMap(branch -> {
+                            return Mono.justOrEmpty(branch.getProductList().stream()
+                                            .max(Comparator.comparingInt(ProductEntity::getStock)))
+                                    .map(product -> mapper.entityToProductModel(product));
+                        })
+                );
     }
 }
