@@ -9,6 +9,8 @@ import com.tecnical_test.franchise_management.franchise_core.infrastructure.enti
 import com.tecnical_test.franchise_management.franchise_core.infrastructure.entity.ProductEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class MapperEntity {
 
@@ -42,15 +44,20 @@ public class MapperEntity {
 
     public ProductModel franchiseEntityToProductModel(FranchiseEntity franchiseEntity, int idSucursal) {
 
-        int idProduct = franchiseEntity.getBranchList().get(idSucursal).getProductList().size() - 1;
-        BranchEntity branchEntity = franchiseEntity.getBranchList().get(idSucursal);
+        Optional<BranchEntity> branchEntity = franchiseEntity.getBranchList()
+                .stream()
+                .filter(branchEn -> branchEn.getId() == idSucursal).
+                findFirst();
+
+        int productId = branchEntity.get().getProductList().size() - 1;
+
 
         return ProductModel.builder()
-                .idProduct(idProduct)
-                .productName(branchEntity.getProductList().get(idProduct).getName())
+                .idProduct(branchEntity.get().getProductList().get(productId).getId())
+                .productName(branchEntity.get().getProductList().get(productId).getName())
                 .franchiseId(franchiseEntity.getId())
-                .branchId(branchEntity.getId())
-                .stock(branchEntity.getProductList().get(idProduct).getStock())
+                .branchId(branchEntity.get().getId())
+                .stock(branchEntity.get().getProductList().get(productId).getStock())
                 .build();
     }
 

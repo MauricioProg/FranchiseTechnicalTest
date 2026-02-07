@@ -72,7 +72,9 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
                                 return franchiseRepository.save(franchise);
                             });
 
-                }).map(finalProductModel -> ProductModel.builder()
+                })
+                .switchIfEmpty(Mono.error(new RuntimeException("No se pudo borrar no se encuenta producto")))
+                .map(finalProductModel -> ProductModel.builder()
                         .idProduct(idProduct)
                         .branchId(idBranch)
                         .franchiseId(idFranchise)
