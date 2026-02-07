@@ -70,19 +70,22 @@ public class MapperEntity {
 
     public ProductEntity productModelToEntity(ProductModel productModel) {
         return ProductEntity.builder()
-                .id(productModel.getIdProduct() )
+                .id(productModel.getIdProduct())
                 .name(productModel.getProductName())
                 .stock(productModel.getStock())
                 .build();
     }
 
-    public ProductModel entityToProductModel(ProductEntity productEntity) {
+    public ProductModel entityToProductModel(ProductEntity productEntity, int branchId, int franchiseId, String branchName) {
+
+
         return ProductModel.builder()
-                .idProduct(productEntity.getId() )
+                .idProduct(productEntity.getId())
                 .productName(productEntity.getName())
                 .stock(productEntity.getStock())
-                .branchId(0)
-                .franchiseId(0)
+                .branchId(branchId)
+                .branchName(branchName)
+                .franchiseId(franchiseId)
                 .build();
     }
 
@@ -95,7 +98,7 @@ public class MapperEntity {
 
         Optional<ProductEntity> productEntity = branchEntity.get().getProductList()
                 .stream()
-                .filter(productEnt -> productEnt.getId() == idProduct )
+                .filter(productEnt -> productEnt.getId() == idProduct)
                 .findFirst();
 
         return ProductModel.builder()
@@ -106,7 +109,6 @@ public class MapperEntity {
                 .stock(productEntity.get().getStock())
                 .build();
     }
-
 
 
 }

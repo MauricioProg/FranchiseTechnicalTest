@@ -11,6 +11,7 @@ public class ProductModel {
     private int franchiseId;
     private int branchId;
     private String productName;
+    private String branchName;
     private int stock;
 
 

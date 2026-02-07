@@ -11,6 +11,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.logging.Level;
 
 @Component
 public class ProductRepositoryAdapter implements ProductRepositoryPort {
@@ -114,12 +115,18 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
 
     @Override
     public Flux<ProductModel> paginatedStockProduct(ProductModel productModel) {
-        return franchiseRepository.findById(productModel.getIdProduct())
+        return franchiseRepository.findById(productModel.getFranchiseId())
                 .flatMapMany(franchise -> Flux.fromIterable(franchise.getBranchList())
                         .flatMap(branch -> {
+
+                            if (branch.getProductList() == null || branch.getProductList().isEmpty()) {
+                                return Mono.empty();
+                            }
+                            System.out.println("Debug 2: BranchEnitity estado" + branch);
+
                             return Mono.justOrEmpty(branch.getProductList().stream()
                                             .max(Comparator.comparingInt(ProductEntity::getStock)))
-                                    .map(product -> mapper.entityToProductModel(product));
+                                    .map(product -> mapper.entityToProductModel(product, branch.getId(), productModel.getFranchiseId(), branch.getName()));
                         })
                 );
     }
