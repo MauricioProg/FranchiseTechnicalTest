@@ -8,6 +8,7 @@ import com.tecnical_test.franchise_management.franchise_core.application.handler
 import com.tecnical_test.franchise_management.franchise_core.application.handler.CreateFranchiseHandler;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import tools.jackson.databind.JsonNode;
 
@@ -27,21 +28,21 @@ public class FranchiseController {
     }
 
     @PostMapping("/CreateFranchise")
-    public Mono<JsonNode> createFranquise(
+    public Mono<JsonNode> createFranchise(
             @RequestBody FranchiseRequest franchiseRequest) {
         return createFranchiseHandler.executeCreateFranchise(franchiseRequest);
     }
 
 
     @PostMapping("/CreateBranch")
-    public ResponseEntity<JsonNode> createBranch(
+    public Mono<JsonNode> createBranch(
             @RequestBody BranchRequest branchRequest) {
 
         return createBranchHandler.executeCreateFranchise(branchRequest);
     }
 
     @PostMapping("/CreateProduct")
-    public ResponseEntity<String> createProduct(
+    public Mono<JsonNode> createProduct(
             @RequestHeader(required = false ) Map<String, String > mapHeader) {
 
         return null;
@@ -49,7 +50,7 @@ public class FranchiseController {
 
 
     @DeleteMapping("/DeleteProduct")
-    public ResponseEntity<String> deleteProduct(
+    public Mono<JsonNode> deleteProduct(
             @RequestHeader(required = false ) Map<String, String > mapHeader) {
 
         return null;
@@ -57,15 +58,15 @@ public class FranchiseController {
 
 
     @PutMapping("/UpdateStockProduct")
-    public ResponseEntity<String> updateStockProduct(
+    public ResponseEntity<JsonNode> updateStockProduct(
             @RequestHeader(required = false ) Map<String, String > mapHeader) {
 
         return null;
     }
 
 
-    @GetMapping("/UpdateStockProduct")
-    public ResponseEntity<String> paginatedStockProduct(
+    @GetMapping("/PaginatedStockProduct")
+    public Flux<JsonNode> paginatedStockProduct(
             @RequestHeader(required = false ) Map<String, String > mapHeader) {
 
         return null;

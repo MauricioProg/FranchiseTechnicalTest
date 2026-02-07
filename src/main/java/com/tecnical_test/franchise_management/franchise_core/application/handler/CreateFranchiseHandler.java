@@ -23,12 +23,7 @@ public class CreateFranchiseHandler {
 
         // Buscamos sucrusal
         if (franchiseRequest.getFranchiseName() == null) {
-            return new Mono<JsonNode>() {
-                @Override
-                public void subscribe(CoreSubscriber<? super JsonNode> coreSubscriber) {
-
-                }
-            };
+            return Mono.error(new IllegalArgumentException("Se necesita el id franquicia a la que se desea asociar"));
         }
 
         return createFranchiseService.executeCreateFranchise(franchiseRequest);

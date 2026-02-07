@@ -10,13 +10,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collation = "products")
 public class ProductEntity {
 
-    @Id
-    private int numIdProduct;
-
-    private int branchId;
+    private int id;
 
     private String name;
 

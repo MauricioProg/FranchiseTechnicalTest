@@ -3,19 +3,21 @@ package com.tecnical_test.franchise_management.franchise_core.application.factor
 
 import com.tecnical_test.franchise_management.franchise_core.application.dto.request.BranchRequest;
 import com.tecnical_test.franchise_management.franchise_core.application.dto.request.FranchiseRequest;
-import com.tecnical_test.franchise_management.franchise_core.domain.model.CreateBranchModel;
+import com.tecnical_test.franchise_management.franchise_core.domain.model.BranchModel;
 import com.tecnical_test.franchise_management.franchise_core.domain.model.FranchiseModel;
 import org.springframework.stereotype.Component;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 
 @Component
 public class FactoryModel {
 
-    public CreateBranchModel buildDtoRequestToModel(BranchRequest branchRequest) {
+    public BranchModel buildDtoRequestToModel(BranchRequest branchRequest) {
 
-        return CreateBranchModel.builder()
+        return BranchModel.builder()
                 .branchName(branchRequest.getBranchName())
-                .franchiseId(branchRequest.getFranchiseId())
+                .franchiseId(Integer.parseInt(branchRequest.getFranchiseId()))
                 .build();
 
     }
@@ -25,6 +27,13 @@ public class FactoryModel {
         return FranchiseModel.builder()
                 .franchiseName(franchiseRequest.getFranchiseName())
                 .build();
+    }
+
+    
+
+    public JsonNode buildModelToJsonNode(Object model) {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.valueToTree(model);
     }
 
 }

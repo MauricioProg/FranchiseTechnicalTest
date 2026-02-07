@@ -29,16 +29,12 @@ public class CreateFranchiseService {
 
         FranchiseModel franchiseModel = factoryModel.buildDtoRequestToModel(franchiseRequest);
 
-        saveFranchiseRepositoryPort.saveFranchise(franchiseModel);
-
-
-        return new Mono<JsonNode>() {
-            @Override
-            public void subscribe(CoreSubscriber<? super JsonNode> coreSubscriber) {
-
-            }
-        };
+        return saveFranchiseRepositoryPort.saveFranchise(franchiseModel)
+                .map(savedModel -> factoryModel.buildModelToJsonNode(savedModel));
     }
+
+
+
 
 
 
