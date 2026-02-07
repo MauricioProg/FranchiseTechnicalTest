@@ -2,7 +2,6 @@ package com.tecnical_test.franchise_management.franchise_core.infrastructure.ada
 
 import com.tecnical_test.franchise_management.franchise_core.application.ports.ProductRepositoryPort;
 import com.tecnical_test.franchise_management.franchise_core.domain.model.ProductModel;
-import com.tecnical_test.franchise_management.franchise_core.infrastructure.entity.BranchEntity;
 import com.tecnical_test.franchise_management.franchise_core.infrastructure.entity.ProductEntity;
 import com.tecnical_test.franchise_management.franchise_core.infrastructure.mapper.MapperEntity;
 import com.tecnical_test.franchise_management.franchise_core.infrastructure.repository.FranchiseRepository;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class ProductRepositoryAdapter implements ProductRepositoryPort {
@@ -73,7 +71,7 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
                             });
 
                 })
-                .switchIfEmpty(Mono.error(new RuntimeException("No se pudo borrar no se encuenta producto")))
+                .switchIfEmpty(Mono.error(new RuntimeException("No se pudo borrar no se encuentra producto")))
                 .map(finalProductModel -> ProductModel.builder()
                         .idProduct(idProduct)
                         .branchId(idBranch)
@@ -81,5 +79,34 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
                         .productName("Producto Eliminado correctamente")
                         .build());
 
+    }
+
+    @Override
+    public Mono<ProductModel> updateStockProduct(ProductModel productModel) {
+
+        return franchiseRepository.findById(productModel.getFranchiseId())
+                .flatMap(franchise -> {
+
+                     return Mono.justOrEmpty(franchise.getBranchList().stream()
+                                    .filter(branchEntity -> branchEntity.getId() == productModel.getBranchId())
+                                    .findFirst()).
+                             flatMap(branchEntity -> {
+
+                                 var productOpt = branchEntity.getProductList()
+                                         .stream()
+                                         .filter(productEntity -> productEntity.getId() == productModel.getIdProduct())
+                                         .findFirst();
+
+                                 if (productOpt.isEmpty()) {
+                                     return Mono.error(new RuntimeException("Producto inexistente"));
+                                 }
+
+                                 productOpt.get().setStock(productModel.getStock());
+
+                                 return franchiseRepository.save(franchise);
+                             });
+                })
+                .switchIfEmpty(Mono.error(new RuntimeException("El producto no existe")))
+                .map(finalEntity -> mapper.franchiseEntityToUpdateStockModel(finalEntity, productModel.getBranchId(), productModel.getIdProduct()));
     }
 }

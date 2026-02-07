@@ -1,10 +1,7 @@
 package com.tecnical_test.franchise_management.franchise_core.application.factory;
 
 
-import com.tecnical_test.franchise_management.franchise_core.application.dto.request.BranchRequest;
-import com.tecnical_test.franchise_management.franchise_core.application.dto.request.DeleteProductRequest;
-import com.tecnical_test.franchise_management.franchise_core.application.dto.request.FranchiseRequest;
-import com.tecnical_test.franchise_management.franchise_core.application.dto.request.ProductRequest;
+import com.tecnical_test.franchise_management.franchise_core.application.dto.request.*;
 import com.tecnical_test.franchise_management.franchise_core.domain.model.BranchModel;
 import com.tecnical_test.franchise_management.franchise_core.domain.model.FranchiseModel;
 import com.tecnical_test.franchise_management.franchise_core.domain.model.ProductModel;
@@ -46,6 +43,16 @@ public class FactoryModel {
                 .idProduct(deleteProductRequest.getProductId())
                 .branchId(Integer.parseInt(deleteProductRequest.getBranchId()))
                 .franchiseId(Integer.parseInt(deleteProductRequest.getFranchiseId()))
+                .build();
+    }
+
+
+    public ProductModel buildProductUpdateDtoRequestToProductModel(UpdateProductRequest updateProductRequest) {
+        return ProductModel.builder()
+                .idProduct(updateProductRequest.getProductId())
+                .branchId(Integer.parseInt(updateProductRequest.getBranchId()))
+                .franchiseId(Integer.parseInt(updateProductRequest.getFranchiseId()))
+                .stock(updateProductRequest.getStock())
                 .build();
     }
 

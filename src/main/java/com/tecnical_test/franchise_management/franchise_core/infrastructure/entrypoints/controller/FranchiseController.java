@@ -2,14 +2,9 @@ package com.tecnical_test.franchise_management.franchise_core.infrastructure.ent
 
 
 
-import com.tecnical_test.franchise_management.franchise_core.application.dto.request.BranchRequest;
-import com.tecnical_test.franchise_management.franchise_core.application.dto.request.DeleteProductRequest;
-import com.tecnical_test.franchise_management.franchise_core.application.dto.request.FranchiseRequest;
-import com.tecnical_test.franchise_management.franchise_core.application.dto.request.ProductRequest;
-import com.tecnical_test.franchise_management.franchise_core.application.handler.CreateBranchHandler;
-import com.tecnical_test.franchise_management.franchise_core.application.handler.CreateFranchiseHandler;
-import com.tecnical_test.franchise_management.franchise_core.application.handler.CreateProductHandler;
-import com.tecnical_test.franchise_management.franchise_core.application.handler.DeleteProductHandler;
+import com.tecnical_test.franchise_management.franchise_core.application.dto.request.*;
+import com.tecnical_test.franchise_management.franchise_core.application.handler.*;
+import org.springframework.data.mongodb.repository.Update;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -27,13 +22,16 @@ public class FranchiseController {
     private CreateBranchHandler createBranchHandler;
     private CreateProductHandler createProductHandler;
     private DeleteProductHandler deleteProductHandler;
+    private UpdateStockHandler updateStockHandler;
 
     public FranchiseController(CreateFranchiseHandler createFranchiseHandler, CreateBranchHandler createBranchHandler,
-                               CreateProductHandler createProductHandler,  DeleteProductHandler deleteProductHandler) {
+                               CreateProductHandler createProductHandler,  DeleteProductHandler deleteProductHandler,
+                               UpdateStockHandler updateStockHandler) {
         this.createFranchiseHandler = createFranchiseHandler;
         this.createBranchHandler = createBranchHandler;
         this.createProductHandler = createProductHandler;
         this.deleteProductHandler = deleteProductHandler;
+        this.updateStockHandler = updateStockHandler;
     }
 
     @PostMapping("/CreateFranchise")
@@ -66,11 +64,11 @@ public class FranchiseController {
     }
 
 
-    @DeleteMapping("/UpdateStockProduct")
-    public ResponseEntity<JsonNode> updateStockProduct(
-            @RequestHeader(required = false ) Map<String, String > mapHeader) {
+    @PutMapping("/UpdateStockProduct")
+    public Mono<JsonNode> updateStockProduct(
+            @RequestBody UpdateProductRequest updateProductRequest) {
 
-        return null;
+        return updateStockHandler.executeUpdateProduct(updateProductRequest);
     }
 
 

@@ -76,6 +76,27 @@ public class MapperEntity {
                 .build();
     }
 
+    public ProductModel franchiseEntityToUpdateStockModel(FranchiseEntity franchiseEntity, int idSucursal, int idProduct) {
+
+        Optional<BranchEntity> branchEntity = franchiseEntity.getBranchList()
+                .stream()
+                .filter(branchEn -> branchEn.getId() == idSucursal).
+                findFirst();
+
+        Optional<ProductEntity> productEntity = branchEntity.get().getProductList()
+                .stream()
+                .filter(productEnt -> productEnt.getId() == idProduct )
+                .findFirst();
+
+        return ProductModel.builder()
+                .idProduct(productEntity.get().getId())
+                .productName(productEntity.get().getName())
+                .franchiseId(franchiseEntity.getId())
+                .branchId(branchEntity.get().getId())
+                .stock(productEntity.get().getStock())
+                .build();
+    }
+
 
 
 }

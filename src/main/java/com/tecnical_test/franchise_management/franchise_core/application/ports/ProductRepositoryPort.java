@@ -9,4 +9,6 @@ public interface ProductRepositoryPort {
 
     Mono<ProductModel> deleteProduct(ProductModel productModel);
 
+    Mono<ProductModel> updateStockProduct(ProductModel productModel);
+
 }
