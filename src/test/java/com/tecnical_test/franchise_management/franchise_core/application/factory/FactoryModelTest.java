@@ -1,12 +1,13 @@
 package com.tecnical_test.franchise_management.franchise_core.application.factory;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.tecnical_test.franchise_management.franchise_core.application.dto.request.*;
 import com.tecnical_test.franchise_management.franchise_core.domain.model.BranchModel;
 import com.tecnical_test.franchise_management.franchise_core.domain.model.FranchiseModel;
 import com.tecnical_test.franchise_management.franchise_core.domain.model.ProductModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import tools.jackson.databind.JsonNode;
+
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;

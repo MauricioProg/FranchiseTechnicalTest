@@ -1,13 +1,13 @@
 package com.tecnical_test.franchise_management.franchise_core.application.service;
 
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.tecnical_test.franchise_management.franchise_core.application.dto.request.BranchRequest;
 import com.tecnical_test.franchise_management.franchise_core.application.factory.FactoryModel;
 import com.tecnical_test.franchise_management.franchise_core.application.ports.BranchRepositoryPort;
 import com.tecnical_test.franchise_management.franchise_core.domain.model.BranchModel;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
-import tools.jackson.databind.JsonNode;
 
 @Service
 public class CreateBranchService {

@@ -1,10 +1,10 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '4.0.2'
+	id 'org.springframework.boot' version '3.4.2'
 	id 'io.spring.dependency-management' version '1.1.7'
 }
 
-group = 'com.tecnical.test.franchise_management'
+group = 'com.technical.test.franchise_management'
 version = '0.0.1-SNAPSHOT'
 description = 'Franchise Management & Logistics Core (FranchiseCore) Descripción General PayCore es una solución de backend empresarial diseñada para centralizar y optimizar la gestión operativa de redes de franquicias. La plataforma permite una administración granular de sucursales y sus respectivos inventarios, proporcionando visibilidad en tiempo real sobre la disponibilidad de productos y el rendimiento de stock por ubicación.  El sistema está diseñado bajo el paradigma de Arquitectura Hexagonal (Puertos y Adaptadores), lo que garantiza un desacoplamiento total entre la lógica de negocio y la infraestructura. Esto permite que el núcleo del sistema sea altamente testeable, mantenible y adaptable a futuros cambios tecnológicos sin afectar las reglas de negocio.  Características Principales Gestión Centralizada de Franquicias: Registro y control de entidades de franquicia a nivel corporativo.  Administración de Sucursales: Capacidad para expandir la red de ventas asociando múltiples sucursales a una sola franquicia.  Control de Inventario Dinámico: Gestión de productos con validaciones de stock, precios y categorías por sucursal.  Analítica de Inventario: Capacidad técnica para identificar el producto con mayor existencia en cada sucursal de una franquicia específica.  Stack Tecnológico Lenguaje: Java 17 (LTS).  Framework: Spring Boot 3.4.2.  Base de Datos: MongoDB Atlas (Cloud NoSQL) para garantizar alta disponibilidad y escalabilidad de datos.  Gestión de Dependencias: Gradle (Kotlin/Groovy DSL).  Principios de Diseño:  Hexagonal Architecture: Separación estricta en capas (Domain, Application, Infrastructure).  Clean Code: Código semántico, inyección de dependencias y responsabilidad única.  SOLID Principles: Garantizando que cada componente sea extensible y fácil de refactorizar.'
 
@@ -26,28 +26,22 @@ repositories {
 
 dependencies {
 
-    // Validaciones y Web
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
-    // MongoDB Reactivo
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
 
-    // Herramientas de desarrollo
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
-	testImplementation 'org.springframework.boot:spring-boot-starter-mongodb-test'
-	testImplementation 'org.springframework.boot:spring-boot-starter-validation-test'
-	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
-	testImplementation 'org.springframework.boot:spring-boot-testcontainers'
-	testImplementation 'org.testcontainers:testcontainers-junit-jupiter'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    testImplementation 'org.testcontainers:mongodb'
+    testImplementation 'org.testcontainers:junit-jupiter'
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 tasks.named('test') {

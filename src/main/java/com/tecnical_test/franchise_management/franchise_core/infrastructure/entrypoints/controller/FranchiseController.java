@@ -2,14 +2,15 @@ package com.tecnical_test.franchise_management.franchise_core.infrastructure.ent
 
 
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.tecnical_test.franchise_management.franchise_core.application.dto.request.*;
 import com.tecnical_test.franchise_management.franchise_core.application.handler.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import tools.jackson.databind.JsonNode;
-import tools.jackson.databind.node.ObjectNode;
+
 
 @RestController
 @RequestMapping("/Franchise_Management/Franchise_Core")

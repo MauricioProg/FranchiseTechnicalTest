@@ -1,16 +1,14 @@
 package com.tecnical_test.franchise_management.franchise_core.application.handler;
 
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.tecnical_test.franchise_management.franchise_core.application.dto.request.BranchRequest;
 import com.tecnical_test.franchise_management.franchise_core.application.factory.FactoryModel;
 import com.tecnical_test.franchise_management.franchise_core.application.service.CreateBranchService;
 import com.tecnical_test.franchise_management.franchise_core.domain.AppConstants;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import reactor.core.CoreSubscriber;
 import reactor.core.publisher.Mono;
-import tools.jackson.databind.JsonNode;
+
 
 @Component
 public class CreateBranchHandler {

@@ -1,5 +1,7 @@
 package com.tecnical_test.franchise_management.franchise_core.application.handler;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.tecnical_test.franchise_management.franchise_core.application.dto.request.DeleteProductRequest;
 import com.tecnical_test.franchise_management.franchise_core.application.dto.request.DtoResponse;
 import com.tecnical_test.franchise_management.franchise_core.application.factory.FactoryModel;
@@ -10,8 +12,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
-import tools.jackson.databind.JsonNode;
-import tools.jackson.databind.node.JsonNodeFactory;
+
+
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;

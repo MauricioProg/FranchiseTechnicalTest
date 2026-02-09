@@ -1,14 +1,15 @@
 package com.tecnical_test.franchise_management.franchise_core.application.factory;
 
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tecnical_test.franchise_management.franchise_core.application.dto.request.*;
 import com.tecnical_test.franchise_management.franchise_core.domain.model.BranchModel;
 import com.tecnical_test.franchise_management.franchise_core.domain.model.FranchiseModel;
 import com.tecnical_test.franchise_management.franchise_core.domain.model.ProductModel;
-import com.tecnical_test.franchise_management.franchise_core.domain.model.ResponseModel;
 import org.springframework.stereotype.Component;
-import tools.jackson.databind.JsonNode;
-import tools.jackson.databind.ObjectMapper;
+
+
 
 
 @Component

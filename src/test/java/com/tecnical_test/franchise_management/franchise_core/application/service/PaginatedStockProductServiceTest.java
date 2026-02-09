@@ -1,5 +1,7 @@
 package com.tecnical_test.franchise_management.franchise_core.application.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.tecnical_test.franchise_management.franchise_core.application.factory.FactoryModel;
 import com.tecnical_test.franchise_management.franchise_core.application.ports.ProductRepositoryPort;
 import com.tecnical_test.franchise_management.franchise_core.domain.model.ProductModel;
@@ -8,8 +10,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
-import tools.jackson.databind.JsonNode;
-import tools.jackson.databind.node.JsonNodeFactory;
+
+
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
