@@ -14,8 +14,9 @@ public class UpdateFranchiseNameHandler {
     private UpdateFranchiseNameService updateFranchiseNameService;
     private FactoryModel factoryModel;
 
-    public UpdateFranchiseNameHandler(UpdateFranchiseNameService updateFranchiseNameService) {
+    public UpdateFranchiseNameHandler(UpdateFranchiseNameService updateFranchiseNameService, FactoryModel factoryModel) {
         this.updateFranchiseNameService = updateFranchiseNameService;
+        this.factoryModel = factoryModel;
     }
 
     public Mono<JsonNode> executeUpdateFranchiseName(UpdateNameFranchiseRequest updateNameFranchiseRequest){

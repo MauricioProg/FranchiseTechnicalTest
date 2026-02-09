@@ -18,8 +18,9 @@ public class CreateBranchHandler {
     private CreateBranchService createBranchService;
     private FactoryModel  factoryModel;
 
-    public CreateBranchHandler(CreateBranchService createBranchService) {
+    public CreateBranchHandler(FactoryModel factoryModel,CreateBranchService createBranchService) {
         this.createBranchService = createBranchService;
+        this.factoryModel = factoryModel;
     }
 
     public Mono<JsonNode> executeCreateFranchise(BranchRequest branchRequest) {

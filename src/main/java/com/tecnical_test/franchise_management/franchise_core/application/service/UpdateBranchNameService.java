@@ -4,7 +4,6 @@ import com.tecnical_test.franchise_management.franchise_core.application.dto.req
 import com.tecnical_test.franchise_management.franchise_core.application.factory.FactoryModel;
 import com.tecnical_test.franchise_management.franchise_core.application.ports.BranchRepositoryPort;
 import com.tecnical_test.franchise_management.franchise_core.domain.model.BranchModel;
-import com.tecnical_test.franchise_management.franchise_core.infrastructure.mapper.MapperEntity;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import tools.jackson.databind.JsonNode;

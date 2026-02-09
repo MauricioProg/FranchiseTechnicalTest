@@ -26,6 +26,8 @@ public class AppConstants {
     public static final String PRODUCT_SUCCESS_CREATE = "Producto Creado Satisfactoriamente";
 
     //Branch
+    public static final String BRANCH_SUCCESS_CREATE = "Sucursal Creado Satisfactoriamente";
+    public static final String BRANCH_SUCCESS_UPDATED = "Sucursal Actualizada Satisfactoriamente";
 
     //Franchise
     public static final String FRANCHISE_SUCCESS_CREATE = "Franquicia Creado Satisfactoriamente";

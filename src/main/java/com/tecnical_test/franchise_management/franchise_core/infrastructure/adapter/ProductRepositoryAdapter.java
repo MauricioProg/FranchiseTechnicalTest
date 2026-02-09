@@ -157,7 +157,7 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
                             .switchIfEmpty(Mono.just(mapper.createResponseModel(franchise, 206, AppConstants.FRANCHISE_UNEXIST)));
 
                 })
-                .switchIfEmpty(Mono.just(mapper.createResponseModel(null, 206, AppConstants.FRANCHISE_UNEXIST )))
+                .switchIfEmpty(Mono.just(mapper.createResponseModel(null, 206, AppConstants.FRANCHISE_UNEXIST)))
                 .map(finalEntity -> mapper.createResponseModel(finalEntity, 200, AppConstants.PRODUCT_SUCCESS_UPDATE));
     }
 }

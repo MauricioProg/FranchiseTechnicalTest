@@ -42,16 +42,6 @@ public class MapperEntity<T> {
                 .build();
     }
 
-    public BranchModel updatedFranchiseEntityToBranchModel(FranchiseEntity franchiseEntity, BranchModel branchModel) {
-
-        return BranchModel.builder()
-                .branchName(branchModel.getBranchName())
-                .franchiseId(franchiseEntity.getId())
-                .id(branchModel.getId())
-                .build();
-    }
-
-
     public ProductModel franchiseEntityToProductModel(FranchiseEntity franchiseEntity, int idSucursal) {
 
         Optional<BranchEntity> branchEntity = franchiseEntity.getBranchList()
@@ -76,7 +66,6 @@ public class MapperEntity<T> {
                 .name(branchModel.getBranchName())
                 .build();
     }
-
 
     public ProductEntity productModelToEntity(ProductModel productModel) {
         return ProductEntity.builder()

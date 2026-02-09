@@ -1,6 +1,7 @@
 package com.tecnical_test.franchise_management.franchise_core.infrastructure.adapter;
 
 import com.tecnical_test.franchise_management.franchise_core.application.ports.BranchRepositoryPort;
+import com.tecnical_test.franchise_management.franchise_core.domain.AppConstants;
 import com.tecnical_test.franchise_management.franchise_core.domain.model.BranchModel;
 import com.tecnical_test.franchise_management.franchise_core.domain.model.FranchiseModel;
 import com.tecnical_test.franchise_management.franchise_core.domain.model.ResponseModel;
@@ -44,7 +45,7 @@ public class BranchRepositoryAdapter implements BranchRepositoryPort {
                     existingFranchise.getBranchList().add(newBranch);
 
                     return franchiseRepository.save(existingFranchise)
-                            .map(finalEntity -> mapper.createResponseModel(finalEntity, 200, "Sucursal Exitosamente Guardada"));
+                            .map(finalEntity -> mapper.createResponseModel(finalEntity, 200, AppConstants.BRANCH_SUCCESS_CREATE));
                 })
                 .switchIfEmpty(Mono.just( mapper.createResponseModel(null, 206, "Franquicia No Encontrada")));
 
@@ -68,11 +69,11 @@ public class BranchRepositoryAdapter implements BranchRepositoryPort {
                                 branchEntity.setName(branchModel.getBranchName());
 
                                 return franchiseRepository.save(existingFranchise)
-                                        .map(savedFranchise -> mapper.createResponseModel(savedFranchise, 200, "Nombre actualizado correctamente"));
+                                        .map(savedFranchise -> mapper.createResponseModel(savedFranchise, 200, AppConstants.BRANCH_SUCCESS_UPDATED));
                             })
 
-                            .switchIfEmpty(Mono.just(mapper.createResponseModel(existingFranchise, 206, "No se encontró ninguna sucursal")));
+                            .switchIfEmpty(Mono.just(mapper.createResponseModel(existingFranchise, 206, AppConstants.BRANCH_UNEXIST)));
                 })
-                .switchIfEmpty(Mono.just(mapper.createResponseModel(branchModel, 200 , "Error al encontrar la Franquicia")));
+                .switchIfEmpty(Mono.just(mapper.createResponseModel(branchModel, 200 , AppConstants.FRANCHISE_UNEXIST)));
     }
 }
