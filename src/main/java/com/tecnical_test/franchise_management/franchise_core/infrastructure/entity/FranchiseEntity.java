@@ -1,6 +1,7 @@
 package com.tecnical_test.franchise_management.franchise_core.infrastructure.entity;
 
 
+import com.tecnical_test.franchise_management.franchise_core.domain.model.BranchModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,13 +17,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Document(collation = "franchises")
+@Document(collection = "franchises")
 public class FranchiseEntity {
 
     @Id
-    private int numIdBranch;
+    private int id;
 
     private String name;
 
+    private List<BranchEntity> branchList;
 
 }

@@ -1,0 +1,10 @@
+services:
+  franchise-app:
+    build: .
+    container_name: franchise_api
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATA_MONGODB_URI=mongodb+srv://andres_pimiento_db_user:Mongo.Mango1@franchisecluster.oraeaty.mongodb.net/franchise_db?appName=FranchiseCluster
+    restart: always

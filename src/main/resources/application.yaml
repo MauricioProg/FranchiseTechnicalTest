@@ -1,9 +1,6 @@
 server:
   port: 8080
 
-
 spring:
   application:
     name: franchise_core
-  mongodb:
-    uri: mongodb+srv://andres_pimiento_db_user:Mongo.Mango1@franchisecluster.oraeaty.mongodb.net/franchise_db?appName=FranchiseCluster

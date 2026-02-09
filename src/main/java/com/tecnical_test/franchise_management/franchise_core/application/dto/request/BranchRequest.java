@@ -8,12 +8,13 @@ import lombok.*;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString
 public class BranchRequest {
 
     @NotNull
     @JsonProperty("FranchiseId")
-    private String franchiseId;
+    private Integer franchiseId;
 
     @NotNull
     @JsonProperty("BranchName")

@@ -2,6 +2,7 @@ package com.tecnical_test.franchise_management.franchise_core.infrastructure.ent
 
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -10,16 +11,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collation = "products")
+@Builder
 public class ProductEntity {
 
-    @Id
-    private int numIdProduct;
-
-    private int branchId;
+    private int id;
 
     private String name;
 
-    private String stock;
+    private int stock;
 
 }
