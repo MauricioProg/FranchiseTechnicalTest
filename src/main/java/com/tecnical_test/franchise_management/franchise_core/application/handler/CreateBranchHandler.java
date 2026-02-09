@@ -2,7 +2,9 @@ package com.tecnical_test.franchise_management.franchise_core.application.handle
 
 
 import com.tecnical_test.franchise_management.franchise_core.application.dto.request.BranchRequest;
+import com.tecnical_test.franchise_management.franchise_core.application.factory.FactoryModel;
 import com.tecnical_test.franchise_management.franchise_core.application.service.CreateBranchService;
+import com.tecnical_test.franchise_management.franchise_core.domain.AppConstants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -14,6 +16,7 @@ import tools.jackson.databind.JsonNode;
 public class CreateBranchHandler {
 
     private CreateBranchService createBranchService;
+    private FactoryModel  factoryModel;
 
     public CreateBranchHandler(CreateBranchService createBranchService) {
         this.createBranchService = createBranchService;
@@ -21,13 +24,15 @@ public class CreateBranchHandler {
 
     public Mono<JsonNode> executeCreateFranchise(BranchRequest branchRequest) {
 
-        if (branchRequest.getFranchiseId() == null) {
-            return Mono.error(new IllegalArgumentException("Franquicia id es requerido"));
+        if (branchRequest.getFranchiseId() <= 0) {
+            return Mono.just(factoryModel.dtoResponse(AppConstants.CODE_206, AppConstants.MANDATORY_FRANCHISE_CODE))
+                    .map(factoryModel::buildModelToJsonNode);
 
         }
 
         if (branchRequest.getBranchName() == null) {
-            return Mono.error(new IllegalArgumentException("El nombre de la sucursal es requerido"));
+            return Mono.just(factoryModel.dtoResponse(AppConstants.CODE_206, "Nuevo Nombre de Sucursal Obligatorio"))
+                    .map(factoryModel::buildModelToJsonNode);
         }
 
         return createBranchService.executeCreateBranch(branchRequest);

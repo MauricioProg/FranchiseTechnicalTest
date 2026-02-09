@@ -1,43 +1,46 @@
 package com.tecnical_test.franchise_management.franchise_core.application.handler;
 
-import com.tecnical_test.franchise_management.franchise_core.application.dto.request.DeleteProductRequest;
+import com.tecnical_test.franchise_management.franchise_core.application.dto.request.UpdateNameProductRequest;
 import com.tecnical_test.franchise_management.franchise_core.application.factory.FactoryModel;
-import com.tecnical_test.franchise_management.franchise_core.application.service.DeleteProductService;
+import com.tecnical_test.franchise_management.franchise_core.application.service.UpdateProductNameService;
 import com.tecnical_test.franchise_management.franchise_core.domain.AppConstants;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 import tools.jackson.databind.JsonNode;
 
 @Component
-public class DeleteProductHandler {
+public class UpdateProductNameHandler {
 
-    private DeleteProductService deleteProductService;
+    private UpdateProductNameService updateProductNameService;
     private FactoryModel factoryModel;
 
-    public DeleteProductHandler(DeleteProductService deleteProductService, FactoryModel factoryModel) {
-        this.deleteProductService = deleteProductService;
+    public UpdateProductNameHandler(UpdateProductNameService updateProductNameService, FactoryModel factoryModel) {
+        this.updateProductNameService = updateProductNameService;
         this.factoryModel = factoryModel;
     }
 
-    public Mono<JsonNode> executeDeleteProduct(DeleteProductRequest deleteProductRequest) {
+    public Mono<JsonNode> executeUpdateProductName(UpdateNameProductRequest updateNameProductRequest){
 
-        if (deleteProductRequest.getFranchiseId() == null) {
+
+        if (updateNameProductRequest.getFranchiseId() == null){
             return Mono.just(factoryModel.dtoResponse(AppConstants.CODE_206, AppConstants.MANDATORY_FRANCHISE_CODE))
                     .map(factoryModel::buildModelToJsonNode);
         }
 
 
-        if (deleteProductRequest.getBranchId() == null) {
+        if (updateNameProductRequest.getBranchId() == null){
             return Mono.just(factoryModel.dtoResponse(AppConstants.CODE_206, AppConstants.MANDATORY_BRANCH_CODE))
                     .map(factoryModel::buildModelToJsonNode);
         }
 
-        if (deleteProductRequest.getProductId() == null) {
+        if (updateNameProductRequest.getId() == null){
             return Mono.just(factoryModel.dtoResponse(AppConstants.CODE_206, AppConstants.MANDATORY_PRODUCT_CODE))
                     .map(factoryModel::buildModelToJsonNode);
         }
 
-        return deleteProductService.executeDeleteProduct(deleteProductRequest);
+        return updateProductNameService.executeUpdateProductName(updateNameProductRequest);
     }
+
+
 
 }

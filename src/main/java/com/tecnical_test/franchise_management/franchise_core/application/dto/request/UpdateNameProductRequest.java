@@ -1,22 +1,26 @@
 package com.tecnical_test.franchise_management.franchise_core.application.dto.request;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.Data;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@ToString
-public class BranchRequest {
+@Data
+public class UpdateNameProductRequest {
+
+    @NotNull
+    @JsonProperty("Id")
+    Integer id;
+
+    @NotNull
+    @JsonProperty("Name")
+    String name;
 
     @NotNull
     @JsonProperty("FranchiseId")
-    private Integer franchiseId;
+    Integer franchiseId;
 
     @NotNull
-    @JsonProperty("BranchName")
-    private String branchName;
+    @JsonProperty("BranchId")
+    Integer branchId;
 
 }

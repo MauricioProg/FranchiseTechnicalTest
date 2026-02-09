@@ -4,6 +4,7 @@ package com.tecnical_test.franchise_management.franchise_core.infrastructure.map
 import com.tecnical_test.franchise_management.franchise_core.domain.model.BranchModel;
 import com.tecnical_test.franchise_management.franchise_core.domain.model.FranchiseModel;
 import com.tecnical_test.franchise_management.franchise_core.domain.model.ProductModel;
+import com.tecnical_test.franchise_management.franchise_core.domain.model.ResponseModel;
 import com.tecnical_test.franchise_management.franchise_core.infrastructure.entity.BranchEntity;
 import com.tecnical_test.franchise_management.franchise_core.infrastructure.entity.FranchiseEntity;
 import com.tecnical_test.franchise_management.franchise_core.infrastructure.entity.ProductEntity;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class MapperEntity {
+public class MapperEntity<T> {
 
     public FranchiseEntity franchiseModelToEntity(FranchiseModel franchiseModel) {
         return FranchiseEntity.builder()
@@ -38,6 +39,15 @@ public class MapperEntity {
                 .branchName(franchiseEntity.getBranchList().get(idBranch).getName())
                 .franchiseId(franchiseEntity.getId())
                 .id(franchiseEntity.getBranchList().get(idBranch).getId())
+                .build();
+    }
+
+    public BranchModel updatedFranchiseEntityToBranchModel(FranchiseEntity franchiseEntity, BranchModel branchModel) {
+
+        return BranchModel.builder()
+                .branchName(branchModel.getBranchName())
+                .franchiseId(franchiseEntity.getId())
+                .id(branchModel.getId())
                 .build();
     }
 
@@ -107,6 +117,16 @@ public class MapperEntity {
                 .franchiseId(franchiseEntity.getId())
                 .branchId(branchEntity.get().getId())
                 .stock(productEntity.get().getStock())
+                .build();
+    }
+
+
+    public ResponseModel createResponseModel(T entity, int statusCode, String statusMessage) {
+
+        return ResponseModel.builder()
+                .StatusCode(statusCode)
+                .StatusMessage(statusMessage)
+                .data(entity)
                 .build();
     }
 
